@@ -9,13 +9,23 @@
 	<div class="error">{{ error }}</div>
 {% else %}
 <table>
-{% for bus in buses %}
+	<thead>
+	<tr>
+		<th>Bus</th>
+		<th>Destination</th>
+		<th>ETA</th>
+		<th></th>
+	</tr>
+	</thead>
+	<tbody>
+		{% for bus in buses %}
 	<tr class="bus_info">
 	{% for col in bus %}
 		<td>{{ col }}</td>
 	{% endfor %}
 	</tr>
-{% endfor %}
+	{% endfor %}
+	</tbody>
 </table>
 {% endif %}
 {% endblock content %}

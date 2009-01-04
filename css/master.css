@@ -8,12 +8,20 @@ h1, h2 {
 	background-color: #DDD;
 }
 
+h1 a, h2 a {
+	color: Black;
+}
+
 h1 {
 	font-size: 150%;
 }
 
 h2 {
 	font-size: 120%;
+}
+
+p.info {
+	font-size: 10pt;
 }
 
 p {
