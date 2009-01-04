@@ -18,6 +18,17 @@ def index(request):
 	payload = dict(stop_form=StopForm())
 	return render('index.html', payload)
 
+def redirect(request):
+	"""docstring for redirect"""
+	if request.method == 'GET':
+		return HttpResponseRedirect('/')
+	else:
+		form = StopForm(request.POST)
+		if form.is_valid():
+			return HttpResponseRedirect('/stop/%s/' % form.clean_data['stop_number'])
+		else:
+			return HttpResponseRedirect('/')
+
 def stop(request, stop_number):
 	"""Retrieves information about the given stop number and renders it to the screen"""
 	payload = dict()
