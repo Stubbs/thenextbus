@@ -51,7 +51,8 @@ def stop(request, stop_number):
 				buses = []
 				for row in rows:
 					a = [td.group(1) for td in re.finditer("(?:<td.*?>)(.*?)</td>", row)]
-					buses.append(a)
+					if len(a) > 0:
+						buses.append(a)
 			else:
 				error = 'There are no buses from this stop.'
 				buses = None
