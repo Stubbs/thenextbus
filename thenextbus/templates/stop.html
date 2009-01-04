@@ -1,0 +1,17 @@
+<h2>Timetable</h2>
+
+{{ url }}
+
+{% if error %}
+	<div class="error">{{ error }}</div>
+{% else %}
+<table>
+{% for bus in buses %}
+	<tr>
+	{% for col in bus %}
+		<td>{{ col }}</td>
+	{% endfor %}
+	</tr>
+{% endfor %}
+</table>
+{% endif %}
