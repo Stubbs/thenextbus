@@ -5,4 +5,5 @@ urlpatterns = patterns('',
 	(r'^redirect/$', 'thenextbus.stop.views.redirect'),
 	(r'^stop/$', 'thenextbus.stop.views.redirect'),
 	(r'^stop/(?P<stop_number>\d+)/$', 'thenextbus.stop.views.stop'),
+	(r'.*', 'thenextbus.stop.views.redirect'),
 )
