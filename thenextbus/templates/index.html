@@ -1,5 +1,13 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<title>The Next Bus</title>
+</head>
+<body>
 <h1>The Next Bus</h1>
 
+{% block content %}
 <p>This quick app is designed to display nicely on as many mobile devices as possible, 
 	mainly because the default HTML from <a href="http://tsy.acislive.com/">TravelSouthYorkshire</a> is so shocking</p>
 
@@ -7,6 +15,11 @@
 	number bookmark the URL (http://thenextbus.appspot.com/stop/&lt;stop number&gt;) on your phone for easy access next time</p>
 
 <form action="/redirect/" method="post">
+	<fieldset>
 {{ stop_form.as_p }}
 <input type="submit" value="Submit">
+</fieldset>
 </form>
+{% endblock content %}
+</body>
+</html>
