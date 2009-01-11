@@ -3,7 +3,7 @@ from django.shortcuts import render_to_response
 from BeautifulSoup import BeautifulSoup
 from stopforms import *
 
-from google.appengine.api import urlfetch
+from google.appengine.api import urlfetch, memcache
 
 import sys
 import logging
@@ -12,6 +12,22 @@ import re
 def render(template, payload):
 	"""docstring for render"""
 	return render_to_response(template, payload)
+
+def getTimes(stop_number):
+	"""docstring for getTimes"""
+	return urlfetch.fetch('http://tsy.acislive.com/pip/stop_simulator_table.asp?NaPTAN=' + stop_number)
+
+def getTitle(stop_number):
+	"""retrieves the name of the given stop, and stores it in memcache"""
+	title = memcache.get(stop_number)
+
+	if title is not None:
+		return title
+	else:
+		result = urlfetch.fetch('http://tsy.acislive.com/pip/stop_simulator.asp?NaPTAN=' + stop_number)
+		title = re.search('(?:<title>[\n\w]*)(.*)</title>', result.content)
+		memcache.set(stop_number, title.group(1))
+		return title.group(1)
 
 def index(request):
 	"""docstring for index"""
@@ -34,8 +50,11 @@ def stop(request, stop_number):
 	payload = dict()
 	
 	try:
+		# Get the title of this stop.
+		stopTitle = getTitle(stop_number)
+		
 		# http://tsy.acislive.com/pip/stop_simulator.asp?naptan=37022440
-		result = urlfetch.fetch('http://tsy.acislive.com/pip/stop_simulator_table.asp?NaPTAN=' + stop_number)
+		result = getTimes(stop_number)
 		
 		if result.status_code == 200:
 			# Rather than use something like minidom or BeautifulSoup, I've had to resort
@@ -57,7 +76,7 @@ def stop(request, stop_number):
 				error = 'There are no buses from this stop.'
 				buses = None
 
-			return render('stop.html', {'buses': buses, 'error': error})
+			return render('stop.html', {'title': stopTitle, 'buses': buses, 'error': error})
 		else:
 			return render('error.html', payload)
 
