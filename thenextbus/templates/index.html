@@ -4,12 +4,20 @@
 <head>
 	<link rel="stylesheet" type="text/css" href="http://yui.yahooapis.com/2.6.0/build/reset/reset-min.css"/>
 	<link rel="stylesheet" href="/css/master.css" type="text/css" media="screen" title="no title" charset="utf-8"/>
-	<title>The Next Bus</title>
+	<title>The Next Bus - {{ title }}</title>
 </head>
 <body>
 <h1><a href="http://thenextbus.appspot.com">The Next Bus</a></h1>
 
 {% block content %}
+
+<form action="/redirect/" method="post">
+	<fieldset>
+{{ stop_form.as_p }}
+<input type="submit" value="Submit"/>
+</fieldset>
+</form>
+
 <p>This quick app is designed to display nicely on as many mobile devices as possible, 
 	mainly because the default HTML from <a href="http://tsy.acislive.com/">TravelSouthYorkshire</a>, 
 	or any of the YourNextBus services is so shocking, try The Next Bus on services in West Yorkshire, South Yorkshire,
@@ -18,12 +26,6 @@
 <p>You can find the stop number either on the bus stop, or searching TSY's website. Once you find the stop 
 	number bookmark the URL (http://thenextbus.appspot.com/stop/&lt;stop number&gt;) on your phone for easy access next time</p>
 
-<form action="/redirect/" method="post">
-	<fieldset>
-{{ stop_form.as_p }}
-<input type="submit" value="Submit"/>
-</fieldset>
-</form>
 {% endblock content %}
 <p class="info"><a href="mailto:thenextbus@smgsystems.co.uk">thenextbus@smgsystems.co.uk</a></p>
 <script type="text/javascript">

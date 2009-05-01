@@ -1,6 +1,5 @@
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render_to_response
-from BeautifulSoup import BeautifulSoup
 from stopforms import *
 
 from google.appengine.api import urlfetch, memcache
