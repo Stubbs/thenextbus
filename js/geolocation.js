@@ -1,13 +1,29 @@
 function handler(location) {
 	// Get the bus stops near here.
-	var url = "http://geocoding.cloudmade.com/b700b521f78b53b1b0e84cfabe192e6f/geocoding/geoobject_around_point/" + location.coords.latitude + ", " + location.coords.longitude + "/500.js?object_type=bus_stop";
+	var url = "/proxy/" + location.coords.latitude + "," + location.coords.longitude + "/";
 
-	$.get(url,function(data) {$.each(data.features, function(i, item){ 
-		alert(i); })});
+	$.ajax({
+		type: 'get',
+		url: url,
+		dataType: "json",
+		success: function(data, text) { 
+			$.each(data.features, function(i, item) {
+				if(item.properties.ref) {
+					$("#nearby_stops").append("<li><a href='/stop/" + item.properties.ref + "'>" + item.location.road + " (" + item.properties.ref + ")" + "</a></li>");
+				} else {
+					$("#nearby_stops").append("<li>" + item.location.road + "</li>");
+				}
+			})
+		},
+		error: function (XMLHttpRequest, textStatus, errorThrown) {
+			alert(textStatus);
+		}
+		});
 }
 
 function getLocation() {
-	return navigator.geolocation.getCurrentPosition(handler)
+	$("#nearby_stops").text("");
+	navigator.geolocation.getCurrentPosition(handler)
 }
 
 // Add a listener to the "Near Me" button
