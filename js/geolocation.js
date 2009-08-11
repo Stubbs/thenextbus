@@ -21,9 +21,17 @@ function handler(location) {
 		});
 }
 
+function noLocation() {
+	$("#nearby_stops").html("Your device doesn't appear to support the location API.");
+};
+
 function getLocation() {
 	$("#nearby_stops").text("");
-	navigator.geolocation.getCurrentPosition(handler)
+	if(navigator.geolocation) {
+		navigator.geolocation.getCurrentPosition(handler, noLocation)
+	} else {
+		$("#nearby_stops").html("Your device doesn't appear to support the location API.");
+	}
 }
 
 // Add a listener to the "Near Me" button
