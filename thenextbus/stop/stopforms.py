@@ -10,3 +10,5 @@ class AddStopForm(djangoforms.ModelForm):
 	"""Form for adding new stops to the database"""
 	class Meta:
 		model = BusStop
+		
+	location = forms.CharField(initial="lon, lat")
