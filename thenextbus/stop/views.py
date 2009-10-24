@@ -82,3 +82,5 @@ def stop(request, stop_number):
 	except ValueError:
 		return render('error.html', payload)
 
+def help_nearby(request):
+	return render('whats_this.html', {})

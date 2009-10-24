@@ -45,3 +45,8 @@ th {
 tr {
 	border-bottom: 2px solid #999;
 }
+
+#nearme_button {
+	font-family: Arial, Verdana, "MS Trebuchet", sans-serif;
+	font-size: 175%;	
+}
