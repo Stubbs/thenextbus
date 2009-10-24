@@ -7,13 +7,17 @@ function handler(location) {
 		url: url,
 		dataType: "json",
 		success: function(data, text) { 
-			$.each(data.features, function(i, item) {
-				if(item.properties.ref) {
-					$("#nearby_stops").append("<li><a href='/stop/" + item.properties.ref + "'>" + item.location.road + " (" + item.properties.ref + ")" + "</a></li>");
-				} else {
-					$("#nearby_stops").append("<li>" + item.location.road + "</li>");
-				}
-			})
+			if(data.found > 0) {
+				$.each(data.features, function(i, item) {
+					if(item.properties.ref) {
+						$("#nearby_stops").append("<li><a href='/stop/" + item.properties.ref + "'>" + item.location.road + " (" + item.properties.ref + ")" + "</a></li>");
+					} else {
+						$("#nearby_stops").append("<li>" + item.location.road + "</li>");
+					}
+				})
+			} else {
+				$("#nearby_stops").append("Couldn't find any stops nearby.");
+			}
 		},
 		error: function (XMLHttpRequest, textStatus, errorThrown) {
 			alert(textStatus);

@@ -82,5 +82,17 @@ def stop(request, stop_number):
 	except ValueError:
 		return render('error.html', payload)
 
+def add_stop(request):
+	"""Allows a user to add a new bus stop."""
+	if request.method == 'GET':
+		payload = dict(form=AddStopForm())
+		return render('new_stop.html', payload)
+	else:
+		pass
+	
+def edit_stop(request, stop_number):
+	"""Allows a user to edit a stop"""
+	pass
+
 def help_nearby(request):
 	return render('whats_this.html', {})
